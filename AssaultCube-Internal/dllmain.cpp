@@ -10,15 +10,16 @@ DWORD WINAPI HackThread(HMODULE hModule)
 
 	std::cout << "AssaultCube Internal Cheat \n";
 	std::cout << "Press F1 to toggle Godmode \n";
-	std::cout << "Press F2 to toggle Unlimited Ammo \n";
-	std::cout << "Press F3 to toggle No Recoil \n";
+	std::cout << "Press F2 to toggle Armor \n";
+	std::cout << "Press F3 to toggle Unlimited Ammo \n";
+	std::cout << "Press F4 to toggle No Recoil \n";
 
 	uintptr_t moduleBase = (uintptr_t)GetModuleHandle(L"ac_client.exe");
 
 	// Calling it with NULL also gives you the Address of the .exe Module
 	moduleBase = (uintptr_t)GetModuleHandle(NULL);
 
-	bool bHealth = false, bAmmo = false, bRecoil = false;
+	bool bHealth = false, bArmor = false, bAmmo = false, bRecoil = false;
 
 	while (true)
 	{
@@ -28,15 +29,22 @@ DWORD WINAPI HackThread(HMODULE hModule)
 		}
 
 		if (GetAsyncKeyState(VK_F1) & 1)
+		{
 			bHealth = !bHealth;
+		}
 
 		if (GetAsyncKeyState(VK_F2) & 1)
+		{
+			bArmor = !bArmor;
+		}
+
+		if (GetAsyncKeyState(VK_F3) & 1)
 		{
 			bAmmo = !bAmmo;
 		}
 
 		// No Recoil NOP
-		if (GetAsyncKeyState(VK_F3) & 1)
+		if (GetAsyncKeyState(VK_F4) & 1)
 		{
 			bRecoil = !bRecoil;
 
@@ -61,19 +69,18 @@ DWORD WINAPI HackThread(HMODULE hModule)
 		{
 			if (bHealth)
 			{
-
-				// *localPlayerPtr = derference the pointer, to get the localPlayerAddr
-				// 0xF8 stands for the Health Address
-				// Cast to an int pointer, this pointer now points to the Health Address
-				// Derference it and assign the value 100 to the Health variable it points to
 				*(int*)(*localPlayerPtr + 0xF8) = 100;
+			}
+
+			if (bArmor)
+			{
+				*(int*)(*localPlayerPtr + 0xFC) = 100;
 			}
 
 			if (bAmmo)
 			{
 				*(int*)mem::FindDMAAddy(moduleBase + 0x10F4F4, { 0x374, 0x14, 0x0 }) = 1;
 			}
-
 		}
 		Sleep(1);
 	}
