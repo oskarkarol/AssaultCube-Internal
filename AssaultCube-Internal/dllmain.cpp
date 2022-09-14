@@ -13,13 +13,14 @@ DWORD WINAPI HackThread(HMODULE hModule)
 	std::cout << "Press F2 to toggle Armor \n";
 	std::cout << "Press F3 to toggle Unlimited Ammo \n";
 	std::cout << "Press F4 to toggle No Recoil \n";
+	std::cout << "Press F5 to activate Rapid Fire \n";
 
 	uintptr_t moduleBase = (uintptr_t)GetModuleHandle(L"ac_client.exe");
 
 	// Calling it with NULL also gives you the Address of the .exe Module
 	moduleBase = (uintptr_t)GetModuleHandle(NULL);
 
-	bool bHealth = false, bArmor = false, bAmmo = false, bRecoil = false;
+	bool bHealth = false, bArmor = false, bAmmo = false, bRecoil = false, bRapidFire = false;
 
 	while (true)
 	{
@@ -57,6 +58,17 @@ DWORD WINAPI HackThread(HMODULE hModule)
 			{
 				// 50 8D 4C 24 1C 51 8B CE FF D2 Original Recoil Assembly Instructions
 				mem::Patch((BYTE*)(moduleBase + 0x63786), (BYTE*)"\x50\x8D\x4C\x24\x1C\x51\x8B\xCE\xFF\xD2", 10);
+			}
+		}
+
+		// Rapid Fire NOP
+		if (GetAsyncKeyState(VK_F5) & 1)
+		{
+			bRapidFire = !bRapidFire;
+
+			if (bRapidFire)
+			{
+				mem::Nop((BYTE*)(moduleBase + 0x637E4), 2);
 			}
 		}
 
