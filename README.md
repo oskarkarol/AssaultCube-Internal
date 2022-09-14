@@ -1,4 +1,4 @@
-# AssaultCube-Internal Cheat for v1.2.0.2. 🦈 
+# Internal AssaultCube Cheat for v1.2.0.2. 🦈 
 
 # Features
 
@@ -20,3 +20,5 @@
 • Aimbot
 
 • Rapid Fire
+
+• Fly Hack
