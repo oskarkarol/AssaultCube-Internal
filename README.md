@@ -19,6 +19,4 @@
 
 • Aimbot
 
-• Rapid Fire
-
 • Fly Hack
