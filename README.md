@@ -10,6 +10,8 @@
 
 • No Recoil
 
+• Rapid Fire
+
 
 # TODO
 
