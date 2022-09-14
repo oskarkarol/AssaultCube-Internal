@@ -1,4 +1,4 @@
-# AssaultCube-Internal Cheat for v1.2.0.2. 🦈 
+# Internal AssaultCube Cheat for v1.2.0.2. 🦈 
 
 # Features
 
@@ -9,3 +9,16 @@
 • Unlimited Ammo
 
 • No Recoil
+
+
+# TODO
+
+• Dear ImGui Menu
+
+• ESP
+
+• Aimbot
+
+• Rapid Fire
+
+• Fly Hack
