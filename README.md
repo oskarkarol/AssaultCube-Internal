@@ -10,6 +10,8 @@
 
 • No Recoil
 
+• Rapid Fire
+
 
 # TODO
 
@@ -18,7 +20,5 @@
 • ESP
 
 • Aimbot
-
-• Rapid Fire
 
 • Fly Hack
