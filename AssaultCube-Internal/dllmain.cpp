@@ -15,6 +15,7 @@ DWORD WINAPI HackThread(HMODULE hModule)
 	std::cout << "Press F4 to toggle No Recoil \n";
 	std::cout << "Press F5 to toggle Rapid Fire \n";
 	std::cout << "Press F6 to toggle FlyHack \n";
+	std::cout << "Press F7 to toggle NoScope (Sniper) \n";
 
 	uintptr_t moduleBase = (uintptr_t)GetModuleHandle(L"ac_client.exe");
 
@@ -26,8 +27,8 @@ DWORD WINAPI HackThread(HMODULE hModule)
 	bool bAmmo = false;
 	bool bRecoil = false;
 	bool bRapidFire = false;
-	bool bMap = false;
 	bool bFlyHack = false;
+	bool bNoScope = false;
 
 	while (true)
 	{
@@ -101,6 +102,24 @@ DWORD WINAPI HackThread(HMODULE hModule)
 			{
 				// Restore
 				mem::Patch((BYTE*)0x45ADD8, (BYTE*)"\x00", 1);
+			}
+		}
+
+		// NoScope
+		if (GetAsyncKeyState(VK_F7) & 1)
+		{
+			bNoScope = !bNoScope;
+
+			if (bNoScope)
+			{
+				// Nop
+				mem::Nop((BYTE*)0x463CEB, 5);
+			}
+
+			else
+			{
+				// Restore
+				mem::Patch((BYTE*)0x463CEB, (BYTE*)"\xE8\x90\x43\xFA\xFF", 5);
 			}
 		}
 
