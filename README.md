@@ -12,6 +12,9 @@
 
 • Rapid Fire
 
+• Fly Hack
+
+• NoScope (Sniper)
 
 # TODO
 
@@ -20,5 +23,3 @@
 • ESP
 
 • Aimbot
-
-• Fly Hack
