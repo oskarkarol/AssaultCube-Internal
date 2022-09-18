@@ -1,5 +1,8 @@
 # Internal AssaultCube Cheat for v1.2.0.2. 🦈 
 
+# Installation
+Open the Project in Visual Studio, set the Configuration to Release for x86 and Compile
+
 # Features
 
 • Godmode
@@ -23,3 +26,6 @@
 • ESP
 
 • Aimbot
+
+# Credits
+https://guidedhacking.com/
