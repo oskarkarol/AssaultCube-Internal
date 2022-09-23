@@ -14,8 +14,9 @@ DWORD WINAPI HackThread(HMODULE hModule)
 	std::cout << "Press F3 to toggle Unlimited Ammo \n";
 	std::cout << "Press F4 to toggle No Recoil \n";
 	std::cout << "Press F5 to toggle Rapid Fire \n";
-	std::cout << "Press F6 to toggle FlyHack \n";
+	std::cout << "Press F6 to toggle Fly Hack \n";
 	std::cout << "Press F7 to toggle NoScope (Sniper) \n";
+	std::cout << "Press F8 to toggle Map Hack \n";
 
 	uintptr_t moduleBase = (uintptr_t)GetModuleHandle(L"ac_client.exe");
 
@@ -27,8 +28,9 @@ DWORD WINAPI HackThread(HMODULE hModule)
 	bool bAmmo = false;
 	bool bRecoil = false;
 	bool bRapidFire = false;
-	bool bFlyHack = false;
+	bool bFly = false;
 	bool bNoScope = false;
+	bool bMap = false;
 
 	while (true)
 	{
@@ -90,9 +92,9 @@ DWORD WINAPI HackThread(HMODULE hModule)
 		// Flyhack
 		if (GetAsyncKeyState(VK_F6) & 1)
 		{
-			bFlyHack = !bFlyHack;
+			bFly = !bFly;
 
-			if (bFlyHack)
+			if (bFly)
 			{
 				// Patch
 				mem::Patch((BYTE*)0x45ADD8, (BYTE*)"\x01", 1);
@@ -120,6 +122,42 @@ DWORD WINAPI HackThread(HMODULE hModule)
 			{
 				// Restore
 				mem::Patch((BYTE*)0x463CEB, (BYTE*)"\xE8\x90\x43\xFA\xFF", 5);
+			}
+		}
+
+		// Map Hack
+		if (GetAsyncKeyState(VK_F8) & 1)
+		{
+			bMap = !bMap;
+
+			if (bMap)
+			{
+				// Bypass gameMode checking
+				mem::Nop((BYTE*)0x0040968F, 6);
+
+				// Map show ALL
+				mem::Nop((BYTE*)0x04096A1, 6);
+
+				// Bypass gameMode checking on radar
+				mem::Nop((BYTE*)0x00409FA1, 6);
+
+				// Radar show ALL
+				mem::Nop((BYTE*)0x0409FB3, 6);
+			}
+
+			else
+			{
+				// Rstore gameMode checking
+				mem::Patch((BYTE*)0x0040968F, (BYTE*)"\x0F\x85\x65\x01\x00\x00", 6);
+
+				// Restore Map
+				mem::Patch((BYTE*)0x04096A1, (BYTE*)"\x0f\x85\x53\x01\x00\x00", 6);
+
+				// Restore Radar gamemodeChecking?
+				mem::Patch((BYTE*)0x00409FA1, (BYTE*)"\x0F\x85\x5C\x01\x00\x00", 6);
+
+				// Restore Radar
+				mem::Patch((BYTE*)0x0409FB3, (BYTE*)"\x0F\x85\x4a\x01\x00\x00", 6);
 			}
 		}
 
