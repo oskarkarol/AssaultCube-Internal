@@ -5,19 +5,21 @@ Open the Project in Visual Studio, set the Configuration to Release for x86 and 
 
 # Features
 
-• Godmode
+• Godmode <kbd>F1</kbd>
 
-• Unlimited Armor
+• Unlimited Armor <kbd>F2</kbd>
 
-• Unlimited Ammo
+• Unlimited Ammo <kbd>F3</kbd>
 
-• No Recoil
+• No Recoil <kbd>F4</kbd>
 
-• Rapid Fire
+• Rapid Fire <kbd>F5</kbd>
 
-• Fly Hack
+• Fly Hack <kbd>F6</kbd>
 
-• NoScope (Sniper)
+• NoScope (Sniper) <kbd>F7</kbd>
+
+• Radar/Map Hack <kbd>F8</kbd>
 
 # TODO
 
