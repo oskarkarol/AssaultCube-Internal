@@ -9,4 +9,7 @@ namespace mem
 	void Nop(BYTE* dst, unsigned int size);
 	void NopEx(BYTE* dst, unsigned int size, HANDLE hProcess);
 	uintptr_t FindDMAAddy(uintptr_t ptr, std::vector<unsigned int> offsets);
+
+	bool Detour32(BYTE* src, BYTE* dst, const uintptr_t len);
+	BYTE* TrampHook32(BYTE* src, BYTE* dst, const uintptr_t len);
 }
