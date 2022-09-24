@@ -140,10 +140,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="draw.cpp" />
+    <ClCompile Include="hook.cpp" />
     <ClCompile Include="mem.cpp" />
     <ClCompile Include="proc.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="draw.h" />
+    <ClInclude Include="hook.h" />
     <ClInclude Include="mem.h" />
     <ClInclude Include="proc.h" />
   </ItemGroup>

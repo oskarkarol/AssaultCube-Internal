@@ -1,5 +1,7 @@
 #include <iostream>
 #include "mem.h"
+#include "hook.h"
+#include "draw.h"
 
 uintptr_t moduleBase = (uintptr_t)GetModuleHandle(L"ac_client.exe");
 
@@ -15,6 +17,39 @@ bool bMap = false;
 typedef BOOL(__stdcall* twglSwapBuffers) (HDC hDc);
 
 twglSwapBuffers owglSwapBuffers;
+twglSwapBuffers wglSwapBuffersGateway;
+
+GL::Font glFont;
+const int FONT_HEIGHT = 15;
+const int FONT_WIDTH = 9;
+
+const char* example = "Test Box";
+const char* example2 = "I'm Inside";
+
+void Draw()
+{
+	HDC currentHDC = wglGetCurrentDC();
+
+	if (!glFont.bBuilt || currentHDC != glFont.hdc)
+	{
+		glFont.Build(FONT_HEIGHT);
+
+	}
+
+	GL::SetupOrtho();
+
+	GL::DrawOutline(300, 300, 200, 200, 2.0f, RGB::red);
+
+	float textPointX = glFont.centerText(300, 200, strlen(example) * FONT_WIDTH);
+	float textPointY = 300 - FONT_HEIGHT / 2;
+
+	glFont.Print(textPointX, textPointY, RGB::green, "%s", example);
+
+	vec3 insideTextPoint = glFont.centerText(300, 300 + 100, 200, 200, strlen(example2) * FONT_WIDTH, FONT_HEIGHT);
+	glFont.Print(insideTextPoint.x, insideTextPoint.y, RGB::green, "%s", example2);
+
+	GL::RestoreGL();
+}
 
 BOOL __stdcall hkwglSwapBuffers(HDC hDc)
 {
@@ -159,18 +194,21 @@ BOOL __stdcall hkwglSwapBuffers(HDC hDc)
 
 		if (bAmmo)
 		{
-			*(int*)mem::FindDMAAddy(moduleBase + 0x10F4F4, { 0x374, 0x14, 0x0 }) = 1;
+			*(int*)mem::FindDMAAddy(moduleBase + 0x10F4F4, { 0x374, 0x14, 0x0 }) = 100;
 		}
     }
 
-    return owglSwapBuffers(hDc);
+	Draw();
+
+	return wglSwapBuffersGateway(hDc);
 }
 
 DWORD WINAPI HackThread(HMODULE hModule)
 {
     // Hook
-    owglSwapBuffers = (twglSwapBuffers)GetProcAddress(GetModuleHandle(L"opengl32.dll"), "wglSwapBuffers");
-    owglSwapBuffers = (twglSwapBuffers)mem::TrampHook32((BYTE*)owglSwapBuffers, (BYTE*)hkwglSwapBuffers, 5);
+	Hook SwapBuffersHook("wglSwapBuffers", "opengl32.dll", (BYTE*)hkwglSwapBuffers, (BYTE*)&wglSwapBuffersGateway, 5);
+
+	SwapBuffersHook.Enable();
 
 	return 0;
 }
