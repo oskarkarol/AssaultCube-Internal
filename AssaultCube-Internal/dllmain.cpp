@@ -168,29 +168,11 @@ BOOL __stdcall hkwglSwapBuffers(HDC hDc)
 
 DWORD WINAPI HackThread(HMODULE hModule)
 {
-    // Create Console
-    AllocConsole();
-    FILE* f;
-    freopen_s(&f, "CONOUT$", "w", stdout);
-
-    std::cout << "AssaultCube Internal Cheat" << std::endl;
-    std::cout << "Press F1 to toggle Godmode" << std::endl;
-    std::cout << "Press F2 to toggle Armor" << std::endl;
-    std::cout << "Press F3 to toggle Unlimited Ammo" << std::endl;
-    std::cout << "Press F4 to toggle No Recoil" << std::endl;
-    std::cout << "Press F5 to toggle Rapid Fire" << std::endl;
-    std::cout << "Press F6 to toggle Fly Hack" << std::endl;
-    std::cout << "Press F7 to toggle NoScope (Sniper)" << std::endl;
-    std::cout << "Press F8 to toggle Map Hack" << std::endl;
-
     // Hook
     owglSwapBuffers = (twglSwapBuffers)GetProcAddress(GetModuleHandle(L"opengl32.dll"), "wglSwapBuffers");
     owglSwapBuffers = (twglSwapBuffers)mem::TrampHook32((BYTE*)owglSwapBuffers, (BYTE*)hkwglSwapBuffers, 5);
 
-    // Finish
-    fclose(f);
-    FreeConsole();
-    return 0;
+	return 0;
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule,
