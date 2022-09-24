@@ -1,7 +1,9 @@
-# Internal AssaultCube Cheat for v1.2.0.2. 🦈 
+# Internal AssaultCube Cheat for v1.2.0.2. 👻
+
+![Screenshot 2022-09-24 140341](https://user-images.githubusercontent.com/104499175/192097056-cc1b40d7-58e7-4710-b0d1-4d48dda55a72.png)
 
 # Installation
-Open the Project in Visual Studio, set the Configuration to Release for x86 and Compile
+Open the Project in Visual Studio, set the Configuration to Release for x86 (Unicode), Compile the Project & Inject the DLL with a DLL Injector
 
 # Features
 
