@@ -139,17 +139,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="draw.cpp" />
-    <ClCompile Include="hook.cpp" />
-    <ClCompile Include="mem.cpp" />
-    <ClCompile Include="proc.cpp" />
+    <ClCompile Include="src\dllmain.cpp" />
+    <ClCompile Include="src\draw.cpp" />
+    <ClCompile Include="src\hook.cpp" />
+    <ClCompile Include="src\mem.cpp" />
+    <ClCompile Include="src\proc.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="draw.h" />
-    <ClInclude Include="hook.h" />
-    <ClInclude Include="mem.h" />
-    <ClInclude Include="proc.h" />
+    <ClInclude Include="src\draw.h" />
+    <ClInclude Include="src\hook.h" />
+    <ClInclude Include="src\mem.h" />
+    <ClInclude Include="src\proc.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
