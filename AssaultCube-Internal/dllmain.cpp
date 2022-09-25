@@ -13,6 +13,8 @@ bool bRapidFire = false;
 bool bFly = false;
 bool bNoScope = false;
 bool bMap = false;
+bool bFullBright = false;
+bool bFullBright = false;
 
 typedef BOOL(__stdcall* twglSwapBuffers) (HDC hDc);
 
@@ -174,6 +176,25 @@ BOOL __stdcall hkwglSwapBuffers(HDC hDc)
 			// Restore Radar
 			mem::Patch((BYTE*)0x0409FB3, (BYTE*)"\x0F\x85\x4a\x01\x00\x00", 6);
 		}
+	}
+
+	if (GetAsyncKeyState(VK_F9) & 1)
+	{
+		bFullBright = !bFullBright;
+		int* brightness = (int*)0x5100f0;
+		if (bFullBright)
+		{
+			*brightness = 176;
+		}
+
+		else *brightness = 110;
+
+		DWORD fullbright = 0x00454EF0;
+		__asm
+		{
+			call fullbright;
+		}
+
 	}
 
 	// Need to use uintptr_t for pointer arithmetic later
