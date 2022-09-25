@@ -14,7 +14,6 @@ bool bFly = false;
 bool bNoScope = false;
 bool bMap = false;
 bool bFullBright = false;
-bool bFullBright = false;
 
 typedef BOOL(__stdcall* twglSwapBuffers) (HDC hDc);
 
