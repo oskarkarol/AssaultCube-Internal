@@ -23,6 +23,8 @@ Open the Project in Visual Studio, set the Configuration to Release for x86 (Uni
 
 • Radar/Map Hack <kbd>F8</kbd>
 
+• FullBright <kbd>F9</kbd>
+
 # TODO
 
 • Dear ImGui Menu
